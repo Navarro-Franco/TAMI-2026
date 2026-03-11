@@ -1,38 +1,63 @@
-\section{Notaciones del dia de hoy}
-    
+\section*{Notaciones:}
+
+$v_1$ es la velocidad de brida 1, 
+
+$s_v$ es la sobrevelocidad, 
+
+$v_2$ es la velocidad de la brida 2.
+
+$v_3$ es la velocidad de la brida 3.
+
+$t_{ce}^i$ es el tiro del cabestrante i 
+
+$t_{def}$ es el tiro del debobinador
+
+$t_{h}$ es el tiro del horno
+
+$t_{n}$ es el tiro del navaja
+
+$t_{cce}^i$ es el tiro que tiene el carrito desde el rodillo del medio
+
+$v_{c_i}$ velocidad del carro i
+
+$v_{m_i}$ velocidad del tangencial del motor i
+
+$X_{m_i}$ posición del
+
+$X_{c_i}$ posición del 
+
+$t_{ref}$ tiro de referencia para cabestrantes 
+
+\section*{Bridas}
+
 \begin{figure}[H]
-\centering
-\includegraphics[width=1\linewidth]{include/brida_simulink.png}
-\caption{Diagra de simulink de la brida 1 sacado de la facultad de Quilmes}
-\label{}
+    \centering
+    \includegraphics[width=0.5\linewidth]{Captura desde 2026-03-11 12-11-25.png}
+    \caption{Caption}
+    \label{fig:placeholder}
 \end{figure}
 
-Para la anterior figura, concluimos la siguiente ecuacion dinamica
+\section{Brida 1:}
 
 \begin{equation}
 \begin{cases} 
-M \cdot \dot{v_1} + f_r \cdot v_1 = T_{ce} - T_{def} - \left[ k \cdot (v_1 + s_v - v_2) + k_I * \theta + k_D \cdot(v_1 + s_v - v_2)' \right]\\
+M \cdot \dot{v_1} + f_r \cdot v_1 = - T_{ce}^i + T_{def} + F(v_1,s_v,v_2)\\
 \dot{\theta} = v_1 + s_v - v_2
-
 \end{cases}
 \end{equation}
 
-donde $v_1$ es la velocidad de brida 1, $s_v$ es la sobrevelocidad, $v_2$ es la 
-velocidad de la brida 2.
+donde 
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=1\linewidth]{include/brida_2_simulink.png}
-\caption{Diagra de simulink de la brida 2 sacado de la facultad de Quilmes}
-\label{}
-\end{figure}
+\begin{equation}
+    F(v_1,s_v,v_2) = - \left[ k \cdot (v_1 + s_v - v_2) + k_I \cdot \theta \right] \\
+\end{equation}
 
-Para la anterior figura, concluimos la siguiente ecuacion dinamica
+\section{Brida 2:}
 
 \begin{equation}
 \begin{cases} 
 
-    m_2 \cdot \dot{v_{2}} + f_{r2} \cdot v_{2} = T_{H} - T_{ce} + F_2(v_3 - v_{2}) \\
+    M_2 \cdot \dot{v_{2}} + f_{r2} \cdot v_{2} = - T_{H} + T_{ce}^2 + F_2(v_2,v_3) \\
     \dot{\theta ^2} = v_3 - v_{2}
 
 \end{cases}
@@ -41,9 +66,116 @@ Para la anterior figura, concluimos la siguiente ecuacion dinamica
 donde 
 
 \begin{equation}
-    F_2(v_3 - v_{2}) = - \left[ k^2 (v_3 - v_{2}) + k^2_I \cdot \theta ^2 + k^2_d \cdot( v_3 - v_{2})' \right]
+    F_2(v_2,v_3) = - \left[ k^2 (v_3 - v_{2}) + k^2_I \cdot \theta ^2 \right]
 \end{equation}
 
-el supra $2$ solo indica que es otra varibale, no una potencia.
+\section{Brida 3:}
 
-Algo para recordar, en el texto dice $V_{ref}$ pero para nosotros es $V_3$
+\begin{equation}
+\begin{cases} 
+
+    M_3 \cdot \dot{v_{3}} + f_{r3} \cdot v_{3} = - T_{n} + T_{h} + F_3(v_3,v_4) \\
+    \dot{\theta ^3} = v_4 - v_3
+
+\end{cases}
+\end{equation}
+
+donde 
+
+\begin{equation}
+    F_3(v_3,v_4) = - \left[ k^3 (v_4 - v_{3}) + k^3_I \cdot \theta ^3 \right]
+\end{equation}
+
+\section*{Cabestrantes:}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Captura desde 2026-03-11 12-10-11.png}
+    \caption{Caption}
+    \label{fig:placeholder}
+\end{figure}
+
+\section{Cabestrante 1:section{Notaciones del dia de hoy}
+    
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\linewidth]{include/brida_simulink.png}
+\caption{Diagra de simulink de la brida 1 sacado de la facultad de Quilmes}
+\label{}
+}
+
+\begin{equation}
+\begin{cases} 
+
+    M_{m_1} \cdot \dot{v_{m1}} + f_{rm_1} \cdot v_{m_1} = - T_{ce}^1 + F_{m_1}() \\
+    M_{c_1} \cdot \dot{v_c1} + f_{rc_1} \cdot v_{c_1} = T_{ce}^1 - T_{cce}^2 \\
+    T_{ce}^1 = (X_{m_1} - X_{c_1}) \cdot k_{c_1} \cdot b_1 \\
+    \dot{\theta ^{m1}} = (P_{m_1} - v_{m_1})
+
+\end{cases}
+\end{equation}
+\begin{enumerate}
+    \item 
+    \begin{equation}
+    F_{m_1}(v_{m_1},P_{m_1}) = - \left[ k^{m_1} (P_{m_1} - v_{m_1}) + k^{m_1}_I \, \theta^{m_1} \right]
+    \end{equation}
+
+    \item 
+    \begin{equation}
+    P_{m_1}(t_{ref},t_{ce},POS) =
+    - \left[ k^{m_1}_2 (t_{ref} + POS - t_{ce}^2) + k^{m_1}_{I,2} \, \theta^{m_1} \right]
+    \end{equation}
+
+    \item 
+    \begin{equation}
+    POS = POS(x_{c_1},x_{c_2},v_{c_1},v_{c_2})
+    \end{equation}
+
+    donde POS es una función que se activa si los carros están en posiciones o velocidades distintas. 
+    Si hay diferencia, depende de un controlador PID que en este caso es únicamente proporcional.
+\end{enumerate}
+
+\section{Cabestrante 2}
+
+\begin{equation}
+\begin{cases} 
+
+    M_{m_2} \cdot \dot{v_{m2}} + f_{rm_2} \cdot v_{m_2} = - T_{ce}^2 + F_{m_2}() \\
+    M_{c_2} \cdot \dot{v_{c_2}} + f_{rc_2} \cdot v_{c_2} = T_{ce}^2 - T_{cce}^1 \\
+    T_{ce}^2 = (X_{m_2} - X_{c_2}) \cdot k_{c_2} \cdot b_2 \\
+    \dot{\theta ^{m2}} = (P_{m_2} - v_{m_2})
+
+\end{cases}
+\end{equation}
+\begin{enumerate}
+    \item 
+    \begin{equation}
+    F_{m_2}(v_{m_2},P_{m_2}) = - \left[ k^{m_2} (P_{m_2} - v_{m_2}) + k^{m_2}_I \, \theta^{m_2} \right]
+    \end{equation}
+
+    \item 
+    \begin{equation}
+    P_{m_2}(t_{ref},t_{ce}^2,POS) =
+    - \left[ k^{m_2}_2 (t_{ref} + POS - t_{ce}^2) + k^{m_2}_{I,2} \, \theta^{m_2} \right]
+    \end{equation}
+
+    \item 
+    \begin{equation}
+    POS = POS(x_{c_1},x_{c_2},v_{c_1},v_{c_2})
+    \end{equation}
+
+    donde POS es una función que se activa si los carros están en posiciones o velocidades distintas. 
+    Si hay diferencia, depende de un controlador PID que en este caso es únicamente proporcional.
+\end{enumerate}
+
+donde 
+
+\begin{equation}
+    F_{m_1}() =\\
+\end{equation}
+
+
+\subsubsection*{Observaciones:}
+\begin{enumerate}
+    \item el supra $2$ solo indica que es otra varibale, no una potencia.
+    \item Algo para recordar, en el texto dice $V_{ref}$ pero para nosotros es $V_3$
+\end{enumerate}
